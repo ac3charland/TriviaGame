@@ -104,7 +104,7 @@ function updatePageTimer(seconds) {
 function decrement() {
     secondsRemaining--;
 
-    $("#timer").text("Seconds remaining: " + secondsRemaining);
+    $("#timer").text("Seconds Remaining: " + secondsRemaining);
     
     if (secondsRemaining === 0) {
         showAnswer(-1);
@@ -114,11 +114,17 @@ function decrement() {
 
 // Picks a new question to display and starts a timer
 function startRound() {
+    // If the user has gone through all the questions, show the end screen
+    if (currentQuestionIndex >= questions.length) {
+        showEndScreen();
+    }
+    
     // Display the question to the page
     createQuestionHTML(currentQuestionIndex);
 
     // Start the timer
     secondsRemaining = 30;
+    $("#timer").text("Seconds Remaining: 30")
     countDown = setInterval(decrement, 1000);
 }
 
@@ -145,7 +151,8 @@ function showAnswer(chosenIndex) {
         correctAnswers += 1;
     } else {
         outcomeString = "Nope!";
-        incorrectAnswers += 1;
+        if (chosenIndex != -1)
+            incorrectAnswers += 1;
     }
 
     // Create and display the answer HTML
@@ -158,17 +165,35 @@ function showAnswer(chosenIndex) {
         
         // Start the next round
         startRound();
-    }, 1000);
+    }, 4000);
+}
+
+function showEndScreen() {
+    clearInterval(countDown);
+    $("#game-area").hide()
+    $("#end-row").show();
+
+    $("#corrects").text("Correct Answers: " + correctAnswers);
+    $("#incorrects").text("Incorrect Answers: " + incorrectAnswers);
+    $("#unanswereds").text("Unanswered: " + unanswered);
 }
 
 $(document).ready( function() {
     $("#game-area").hide();
+    $("#end-row").hide();
 
     // Starts the game.
     $(document).on("click", "#start", function () {
         $("#game-area").show();
         $("#start-row").hide();
         startRound();
+    });
+
+    $(document).on("click", "#reset", function() {
+        $("#game-area").show();
+        $("#end-row").hide();
+        currentQuestionIndex = 0;
+        startRound()
     });
 
 
