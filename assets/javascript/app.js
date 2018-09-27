@@ -15,8 +15,13 @@ var q2 = "Who is your dad?";
 var a2 = ["George", "Herbie", "Tom", "Charles"];
 var question2 = new Question(q2, a2, 2, "#");
 
-var questions = [question1, question2];
+var q3 = "Who is your sister?"
+var a3 = ["Shanice", "Nicole", "Ron Swanson", "Ginnie"];
+var question3 = new Question(q3, a3, 1, "#");
+
+var questions = [question1, question2, question3];
 var currentQuestionIndex = 0;
+var previousIndices = [];
 var secondsRemaining = 30;
 
 var correctAnswers = 0;
@@ -27,6 +32,15 @@ var countDown;
 
 // Randomly picks an index of questions that hasn't been used yet
 function pickIndex() {
+    // Randomly pick an index that hasn't been picked before
+    pickedIndex = Math.floor(Math.random() * questions.length);
+    for (; previousIndices.indexOf(pickedIndex) != -1; ) {
+        pickedIndex = Math.floor(Math.random() * questions.length); 
+    }
+
+    
+    previousIndices.push(pickedIndex);
+    currentQuestionIndex = pickedIndex;
 }
 
 function createBsRow() {
@@ -45,10 +59,6 @@ function createQuestionHTML(index) {
     $("#question-area").empty();
     
     var currentQuestion = questions[index];
-    console.log(currentQuestion.q);
-    console.log(questions[0].q);
-    console.log(question1.q);
-    console.log(question1);
 
     // Create question row
     var questionRow = createBsRow();
@@ -96,10 +106,6 @@ function createAnswerHTML(outcomeString, messageString) {
     $("#question-area").append(imageRow);
 }
 
-function updatePageTimer(seconds) {
-    
-}
-
 // Increments the timer and checks to see if the user ran out of time
 function decrement() {
     secondsRemaining--;
@@ -115,9 +121,12 @@ function decrement() {
 // Picks a new question to display and starts a timer
 function startRound() {
     // If the user has gone through all the questions, show the end screen
-    if (currentQuestionIndex >= questions.length) {
+    if (previousIndices.length == questions.length) {
         showEndScreen();
+        return;
     }
+
+    pickIndex();
     
     // Display the question to the page
     createQuestionHTML(currentQuestionIndex);
@@ -160,9 +169,6 @@ function showAnswer(chosenIndex) {
 
     // Start a timer to count down until the next question is displayed
     var timeout = setTimeout(function() {
-        // Move on to the next question index
-        currentQuestionIndex++;
-        
         // Start the next round
         startRound();
     }, 4000);
@@ -192,7 +198,7 @@ $(document).ready( function() {
     $(document).on("click", "#reset", function() {
         $("#game-area").show();
         $("#end-row").hide();
-        currentQuestionIndex = 0;
+        previousIndices = [];
         startRound()
     });
 
@@ -203,7 +209,6 @@ $(document).ready( function() {
     $(document).on("click", ".answer-button", function() {
         var chosenIndexString = $(this).attr("index");
         var chosenIndex = parseInt(chosenIndexString);
-        console.log(chosenIndex);
         showAnswer(chosenIndex);
     });
 })
