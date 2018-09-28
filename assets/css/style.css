@@ -35,7 +35,7 @@ img {
     border: 3px solid #3F62C7;
     position: relative;
     border-radius: 10px;
-    min-height: 34em;
+    min-height: 32em;
     padding: 20px;
     margin-top: 30px;
     margin-bottom: 60px;
@@ -47,6 +47,10 @@ img {
 
 #timer {
     margin-top: 20px;
+}
+
+#reset {
+    margin: 20px;
 }
 
 #a1 {
@@ -76,6 +80,10 @@ img {
     position: absolute;
     bottom: 3px;
     right: 310px;
+}
+
+#help {
+    margin-top: 100px;
 }
 
 .answer-button {

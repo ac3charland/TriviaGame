@@ -12,14 +12,26 @@ var a1 = ["'That's enough, young Skywalker.'", "'Shall we continue?.'", "'Take a
 var question1 = new Question(q1, a1, 2, "assets/images/q1.png");
 
 var q2 = "Is this question about young Boba Fett?";
-var a2 = ["Yes", "No", "Absolutely", "Yep."];
-var question2 = new Question(q2, a2, 2, "assets/images/q2.png");
+var a2 = ["Yes.", "No.", "Absolutely.", "Yep."];
+var question2 = new Question(q2, a2, 3, "assets/images/q2.png");
 
-var q3 = "Who is your sister?"
-var a3 = ["Shanice", "Nicole", "Ron Swanson", "Ginnie"];
-var question3 = new Question(q3, a3, 1, "#");
+var q3 = "'Your thoughts dwell on your mother?' is asked by which charcter in 'The Phantom Menace'?";
+var a3 = ["Ki-Adi-Mundi", "Yoda", "Qui-Gon Jinn", "Mace Windu"];
+var question3 = new Question(q3, a3, 0, "assets/images/q3.jpg");
 
-var questions = [question1, question2, question3];
+var q4 = "When Anakin slaughters a village of Sand People, who does he attack?";
+var a4 = ["Just the men.", "Just the women.", "Just the children.", "Not just the men, but the women and children too."];
+var question4 = new Question(q4, a4, 3, "assets/images/q4.jpg");
+
+// var q5 = "Which of the following does Anakin NOT do to save Padme in 'Revenge of the Sith'?";
+// var a5 = ["Kill Padme.", "Save the Separatist Council.", "Slaughter younglings.", "Turn to the dark side."];
+// var question5 = new Question(q5, a5, 1, "assets/images/q5.png");
+
+// var q6 = "When Palpatine is arrested by Mace Windu for being a sith lord, what is his response?";
+// var a6 = ["'I'm sure this is a misunderstanding, Master Jedi.'", "'It's treason, then.'", "'No, no, no, NOOOOO!'", "'Whelp, you got me fellas.'"];
+// var question6 = new Question(q6, a6, 1, "assets/images/q6.jpg")
+
+var questions = [question1, question2, question3, question4];
 var currentQuestionIndex = 0;
 var previousIndices = [];
 var secondsRemaining = 30;
@@ -172,7 +184,7 @@ function showAnswer(chosenIndex) {
     var timeout = setTimeout(function() {
         // Start the next round
         startRound();
-    }, 10000);
+    }, 5000);
 }
 
 function showEndScreen() {
