@@ -1,0 +1,119 @@
+html {
+    background-color: black;
+}
+
+body {
+    background-color: black;
+    color: #C7D2F1;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 60px;
+}
+
+
+h1 {
+    font-family: StarJedi, serif;
+    color: #F7E64E;
+}
+
+img {
+    max-height: 300px;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+#logo {
+    font-size: 70px;
+}
+
+#viewfinder {
+    border: 3px solid #3F62C7;
+    position: relative;
+    border-radius: 10px;
+    min-height: 34em;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+#question {
+    margin: 20px;
+}
+
+#timer {
+    margin-top: 20px;
+}
+
+#a1 {
+    position: absolute;
+    bottom: 0px; 
+}
+
+#a2 {
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+}
+
+#b1 {
+    position: absolute;
+    bottom: 3px;
+    left: 280px;
+}
+
+#b2 {
+    position: absolute;
+    bottom: 3px;
+    right: 280px;
+}
+
+#b3 {
+    position: absolute;
+    bottom: 3px;
+    right: 310px;
+}
+
+.answer-button {
+    border: 2px solid #577DDC;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.answer-button:hover {
+    background-color: #152657;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #152657;
+    padding-top: 15px;
+    border-top: 4px solid #3F62C7;
+}
+
+.aurek {
+    font-family: Aurek, sans-serif;
+}
+
+.blinker {
+    height: 15px;
+    width: 25px;
+}
+
+@font-face {
+    font-family: 'StarJedi';
+    src: url(../fonts/Starjedi.woff);
+}
+
+@font-face {
+    font-family: 'Aurek';
+    src: url(../fonts/Aurek-Besh.woff);
+}

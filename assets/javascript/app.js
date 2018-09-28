@@ -7,13 +7,13 @@ function Question(q, answers, correctIndex, src) {
 
 // Question objects for the game to use
 // Will go here
-var q1 = "Who is your mom?";
-var a1 = ["Charlotte", "Sue", "Sam", "Mandy"];
-var question1 = new Question(q1, a1, 0, "#");
+var q1 = "You've invited Anakin to sit on the Jedi council, but won't grant him the rank of master. He's not taking it well. How do you respond?";
+var a1 = ["'That's enough, young Skywalker.'", "'Shall we continue?.'", "'Take a seat, young Skywalker.'", "'You know what they call a quarter-pounder with cheese in France?'"];
+var question1 = new Question(q1, a1, 2, "assets/images/q1.png");
 
-var q2 = "Who is your dad?";
-var a2 = ["George", "Herbie", "Tom", "Charles"];
-var question2 = new Question(q2, a2, 2, "#");
+var q2 = "Is this question about young Boba Fett?";
+var a2 = ["Yes", "No", "Absolutely", "Yep."];
+var question2 = new Question(q2, a2, 2, "assets/images/q2.png");
 
 var q3 = "Who is your sister?"
 var a3 = ["Shanice", "Nicole", "Ron Swanson", "Ginnie"];
@@ -38,8 +38,9 @@ function pickIndex() {
         pickedIndex = Math.floor(Math.random() * questions.length); 
     }
 
-    
+    // Push the selected index to previousIndices
     previousIndices.push(pickedIndex);
+    // Set currentQuestionIndex to be equal to the new pickedIndex;
     currentQuestionIndex = pickedIndex;
 }
 
@@ -63,7 +64,7 @@ function createQuestionHTML(index) {
     // Create question row
     var questionRow = createBsRow();
     var questionColumn = createBsColumn(12);
-    questionColumn.append("<h3>" + currentQuestion.q + "</h3>");
+    questionColumn.append("<h3 id='question'>" + currentQuestion.q + "</h3>");
     questionRow.append(questionColumn);
     $("#question-area").append(questionRow);
 
@@ -86,14 +87,14 @@ function createAnswerHTML(outcomeString, messageString) {
     // Create outcome row
     var outcomeRow = createBsRow();
     var outcomeColumn = createBsColumn(12);
-    outcomeColumn.append("<h2>" + outcomeString + "</h2>");
+    outcomeColumn.append("<h3>" + outcomeString + "</h3>");
     outcomeRow.append(outcomeColumn);
     $("#question-area").append(outcomeRow);
 
     // Create message row
     var messageRow = createBsRow();
     var messageColumn = createBsColumn(12);
-    messageColumn.append("<h4>" + messageString + "</h4>");
+    messageColumn.append("<h5>" + messageString + "</h5>");
     messageRow.append(messageColumn);
     $("#question-area").append(messageRow);
 
@@ -171,7 +172,7 @@ function showAnswer(chosenIndex) {
     var timeout = setTimeout(function() {
         // Start the next round
         startRound();
-    }, 4000);
+    }, 10000);
 }
 
 function showEndScreen() {
@@ -184,9 +185,28 @@ function showEndScreen() {
     $("#unanswereds").text("Unanswered: " + unanswered);
 }
 
+function animateButton(id, startDelay, speed, period) {
+    var delay = setTimeout(function() {
+        var cycle = setInterval(function() {
+            $(id).animate({
+                opacity: "0.1"
+            }, speed, function() {
+                $(id).css("opacity", "1.0");
+            });
+        }, period);
+    }, startDelay);
+}
+
+// Makes the buttons blink
+function blinkButtons() {
+    animateButton("#b1", 1000, 1000, 1500);
+    animateButton("#b2", 0, 700, 2000);
+}
+
 $(document).ready( function() {
     $("#game-area").hide();
     $("#end-row").hide();
+    blinkButtons();
 
     // Starts the game.
     $(document).on("click", "#start", function () {
@@ -199,6 +219,9 @@ $(document).ready( function() {
         $("#game-area").show();
         $("#end-row").hide();
         previousIndices = [];
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        unanswered = 0;
         startRound()
     });
 
@@ -211,4 +234,5 @@ $(document).ready( function() {
         var chosenIndex = parseInt(chosenIndexString);
         showAnswer(chosenIndex);
     });
+
 })
