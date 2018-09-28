@@ -6,7 +6,6 @@ function Question(q, answers, correctIndex, src) {
 }
 
 // Question objects for the game to use
-// Will go here
 var q1 = "You've invited Anakin to sit on the Jedi council, but won't grant him the rank of master. He's not taking it well. How do you respond?";
 var a1 = ["'That's enough, young Skywalker.'", "'Shall we continue?.'", "'Take a seat, young Skywalker.'", "'You know what they call a quarter-pounder with cheese in France?'"];
 var question1 = new Question(q1, a1, 2, "assets/images/q1.png");
@@ -23,15 +22,16 @@ var q4 = "When Anakin slaughters a village of Sand People, who does he attack?";
 var a4 = ["Just the men.", "Just the women.", "Just the children.", "Not just the men, but the women and children too."];
 var question4 = new Question(q4, a4, 3, "assets/images/q4.jpg");
 
-// var q5 = "Which of the following does Anakin NOT do to save Padme in 'Revenge of the Sith'?";
-// var a5 = ["Kill Padme.", "Save the Separatist Council.", "Slaughter younglings.", "Turn to the dark side."];
-// var question5 = new Question(q5, a5, 1, "assets/images/q5.png");
+var q5 = "Which of the following does Anakin NOT do to save Padme in 'Revenge of the Sith'?";
+var a5 = ["Kill Padme.", "Save the Separatist Council.", "Slaughter younglings.", "Turn to the dark side."];
+var question5 = new Question(q5, a5, 1, "assets/images/q5.png");
 
-// var q6 = "When Palpatine is arrested by Mace Windu for being a sith lord, what is his response?";
-// var a6 = ["'I'm sure this is a misunderstanding, Master Jedi.'", "'It's treason, then.'", "'No, no, no, NOOOOO!'", "'Whelp, you got me fellas.'"];
-// var question6 = new Question(q6, a6, 1, "assets/images/q6.jpg")
+var q6 = "When Palpatine is arrested by Mace Windu for being a sith lord, what is his response?";
+var a6 = ["'I'm sure this is a misunderstanding, Master Jedi.'", "'It's treason, then.'", "'No, no, no, NOOOOO!'", "'Whelp, you got me fellas.'"];
+var question6 = new Question(q6, a6, 1, "assets/images/q6.jpg")
 
-var questions = [question1, question2, question3, question4];
+var questions = [question1, question2, question3, question4, question5, question6];
+
 var currentQuestionIndex = 0;
 var previousIndices = [];
 var secondsRemaining = 30;
@@ -40,6 +40,7 @@ var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unanswered = 0;
 
+// Placeholder variable for the game timer
 var countDown;
 
 // Randomly picks an index of questions that hasn't been used yet
@@ -184,9 +185,10 @@ function showAnswer(chosenIndex) {
     var timeout = setTimeout(function() {
         // Start the next round
         startRound();
-    }, 5000);
+    }, 10000);
 }
 
+// Shows the game-over screen after the user has answered all the questions.
 function showEndScreen() {
     clearInterval(countDown);
     $("#game-area").hide()
@@ -197,6 +199,7 @@ function showEndScreen() {
     $("#unanswereds").text("Unanswered: " + unanswered);
 }
 
+// General function to animate a blinking buttton on the screen
 function animateButton(id, startDelay, speed, period) {
     var delay = setTimeout(function() {
         var cycle = setInterval(function() {
@@ -227,6 +230,7 @@ $(document).ready( function() {
         startRound();
     });
 
+    // Resets the game
     $(document).on("click", "#reset", function() {
         $("#game-area").show();
         $("#end-row").hide();
